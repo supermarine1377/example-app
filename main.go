@@ -6,12 +6,17 @@ import (
 	"log"
 	"net"
 	"net/http"
+	"os"
 
 	"golang.org/x/sync/errgroup"
 )
 
 func main() {
-	l, err := net.Listen("tcp", ":8080")
+	port := os.Getenv("PORT")
+	if port == "" {
+		panic("fatal: application port number not found as environment variable")
+	}
+	l, err := net.Listen("tcp", fmt.Sprintf(":%s", port))
 	if err != nil {
 		log.Printf("error: failed to listen port: %+v", err)
 	}
