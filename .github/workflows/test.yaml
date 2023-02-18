@@ -2,21 +2,21 @@ on:
   push:
     branches:
     - "master"
-    pull_request:
-    - "master"
+  pull_request:
 
 name: test
 
 jobs:
   test:
-    runs_on: ubuntu-latest
+    runs-on: ubuntu-latest
     steps:
     - name: Setup Go environment
       uses: actions/setup-go@v3.5.0
     - name: Checkout
       uses: actions/checkout@v3.3.0
-    - run: go test ./... -coverprifile=coverage.out
-    - name: Run octocov
+    - name: Run test
+      run: go test ./... -coverprofile=coverage.out
+    - name: Report coverage
       uses: k1LoW/octocov-action@v0.46.0
 
   
